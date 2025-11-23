@@ -1,0 +1,857 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>CVLab SHUT</title>
+<meta name="description" content="CVLab SHUT — computer vision and medical imaging research" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<link rel="icon" href="data:image/svg+xml;utf8,
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' width='64' height='64'>
+  <rect x='6' y='6' width='52' height='52' rx='6' stroke='%230b63d6' stroke-width='3' fill='none'/>
+  <path d='M32 20c-9.3 0-16.8 8.5-20 12 3.2 3.5 10.7 12 20 12s16.8-8.5 20-12c-3.2-3.5-10.7-12-20-12z' fill='%230b63d6' opacity='0.12'/>
+  <circle cx='32' cy='32' r='8' stroke='%230b63d6' stroke-width='3' fill='%230b63d6'/>
+  <circle cx='32' cy='32' r='4' fill='%23fff'/>
+</svg>" type="image/svg+xml">
+
+<style>
+
+  :root{
+    --accent:#0b63d6;
+    --bg:#f3f6fb;
+    --card:#ffffff;
+    --muted:#64707b;
+    --highlight:#e8f1ff;
+    --sec-gap:20px;
+    --radius:14px;
+    --maxw:1300px;
+    --px:22px;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+
+    a {
+    color: inherit;         
+    text-decoration: none;  
+  }
+
+  a:hover, a:visited, a:active {
+    color: inherit;          
+    text-decoration: none;   
+  }
+
+  #datasets a,
+#datasets a:visited,
+#datasets a:hover,
+#datasets a:active {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:#07202b;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .container{max-width:var(--maxw);margin:32px auto;padding:0 var(--px)}
+
+header{
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px var(--px);
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(7,32,43,0.04);
+  transition: box-shadow 0.18s ease, background-color 0.18s ease;
+  min-height: 64px;
+}
+header.scrolled{
+  box-shadow: 0 10px 30px rgba(7,32,43,0.08);
+  background-color: #ffffff;
+}
+header .lab-brand{display:flex;align-items:center;gap:12px;padding-left:4px}
+nav{display:flex;gap:10px}
+nav a{padding:8px 10px;border-radius:10px}
+@media(max-width:720px){nav{display:none}}
+
+  .lab-icon{width:48px;height:48px;flex:0 0 48px}
+  .lab-title-wrap{display:flex;flex-direction:column}
+  .lab-title{font-weight:800;color:var(--accent);font-size:1.6rem;letter-spacing:-0.4px}
+  .lab-sub{color:var(--muted);font-size:1rem;margin-top:4px}
+  nav{display:flex;gap:10px}
+  nav a{color:var(--muted);text-decoration:none;padding:8px;border-radius:10px;font-weight:600;font-size:0.98rem}
+  nav a.active{color:var(--accent)}
+  @media(max-width:720px){ nav{display:none} header{flex-direction:column;align-items:flex-start} }
+  .founder-box{display:flex;gap:22px;align-items:flex-start;background:var(--card);padding:20px;border-radius:var(--radius);border:1px solid rgba(8,12,20,0.04);margin-bottom:var(--sec-gap)}
+  .founder-photo{width:160px;height:160px;border-radius:12px;overflow:hidden;flex:0 0 160px;background:#eef4ff}
+  .founder-photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .founder-content{flex:1;display:flex;flex-direction:column;gap:12px}
+  .founder-top{display:flex;gap:18px;align-items:flex-start}
+  .founder-text{flex:1}
+  .founder-name{font-weight:800;color:var(--accent);font-size:1.1rem;text-decoration:none}
+  .founder-role{color:var(--muted);margin-top:6px;font-weight:600}
+  .founder-contact{margin-top:8px;color:var(--muted);font-size:0.98rem}
+  .founder-section-title{font-weight:700;margin:6px 0 6px 0;font-size:1rem;color:#0a2636}
+  .founder-paragraph{margin:0;color:#24343f;font-size:0.98rem;white-space:pre-wrap}
+  section{padding:var(--sec-gap) 0;border-top:1px solid rgba(0,0,0,0.04)}
+  section:first-of-type{border-top:0}
+  .section-head{margin-bottom:12px}
+  .section-title{font-size:1.25rem;color:#071a26;font-weight:800;margin:0 0 6px 0}
+  .section-sub{color:var(--muted);font-size:1rem;margin:0}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+  .card{background:var(--card);padding:16px;border-radius:12px;border:1px solid rgba(8,10,20,0.03)}
+  .pubs{display:flex;flex-direction:column;gap:14px;margin-top:8px}
+  .pub{background:var(--card);padding:14px;border-radius:10px;border:1px solid rgba(8,10,20,0.03);display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+  .pub .meta{max-width:calc(100% - 110px)}
+  .pub .year-title{font-weight:700;color:#071427;margin-bottom:6px;font-size:1rem}
+  .pub .authors{color:var(--muted);margin-bottom:6px}
+  .pub .venue{color:#223046}
+  .pub .links{flex:0 0 100px;text-align:right}
+  .pub .links a{display:inline-block;background:var(--accent);color:#fff;padding:8px 12px;border-radius:10px;text-decoration:none;font-weight:700;font-size:0.9rem}
+  .people-section{display:flex;flex-direction:column;gap:18px;margin-top:10px}
+  .subsection{background:transparent;padding:4px;border-radius:8px}
+  .sub-title{font-weight:800;color:#0b2b3a;margin:0 0 8px 0;font-size:1.02rem}
+  .sub-desc{color:var(--muted);margin:0 0 12px 0;font-size:0.98rem}
+  .person-list{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media(max-width:900px){ .person-list{grid-template-columns:1fr} .founder-box{flex-direction:column} .founder-photo{width:100%;height:260px;flex:0 0 auto} }
+  .person-card{display:flex;gap:12px;align-items:flex-start;background:var(--card);padding:12px;border-radius:10px;border:1px solid rgba(8,10,20,0.03)}
+  .person-photo{width:96px;height:96px;border-radius:10px;overflow:hidden;background:#eef4ff;flex:0 0 96px}
+  .person-photo img{width:100%;height:100%;object-fit:cover}
+  .person-info{flex:1}
+  .person-name{font-weight:700;color:var(--accent);text-decoration:none;font-size:1rem}
+  .person-role{color:var(--muted);margin-top:6px;font-weight:600}
+  .person-bio{margin-top:8px;color:#223046;font-size:0.97rem;white-space:pre-wrap}
+  .coord-card{display:flex;gap:12px;align-items:flex-start;background:var(--highlight);padding:12px;border-radius:10px;border:1px solid rgba(8,10,20,0.04)}
+  .coord-photo{width:96px;height:96px;border-radius:10px;overflow:hidden;background:#eef4ff;flex:0 0 96px}
+  .coord-photo img{width:100%;height:100%;object-fit:cover}
+  .teaching-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+  .teaching-card{background:var(--card);padding:14px;border-radius:12px;border:1px solid rgba(8,10,20,0.03)}
+  .teaching-card .instructor{font-weight:700;color:var(--accent);margin-top:8px}
+  footer{margin-top:28px;padding:18px 0;color:var(--muted);text-align:center;font-size:0.98rem}
+  /* -- Datasets section styles (paste into your existing <style>) -- */
+.section-datasets .cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+  margin-top: 6px;
+}
+
+/* card variant that places a banner image above the content */
+.dataset-card{
+  background:var(--card);
+  border-radius:12px;
+  border:1px solid rgba(8,10,20,0.03);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  min-height:160px;
+}
+.dataset-card img{
+  display:block;
+  width:100%;
+  height:300px;            /* banner height you requested */
+  object-fit:cover;
+  flex:0 0 100px;
+}
+.dataset-card .card-body{
+  padding:14px;
+  flex:1 1 auto;
+}
+.dataset-title{font-weight:800;color:var(--accent);margin:0 0 6px 0;font-size:1.02rem}
+.dataset-title a{color:inherit;text-decoration:none}
+.dataset-title a:hover{text-decoration:underline}
+.dataset-desc{color:var(--muted);margin:0;font-size:0.98rem}
+
+/* Enhanced coordinator card (updated: subtle stronger sky-blue, no hover reaction) */
+.coord-card {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  padding: 18px;
+  border-radius: 14px;
+
+  /* slightly stronger sky-blue gradient (more visible than white boxes, but still soft) */
+  background: linear-gradient(180deg, rgba(11,99,214,0.12), rgba(235,246,255,0.95));
+  border: 1px solid rgba(11,99,214,0.18);
+  box-shadow: 0 10px 30px rgba(11,99,214,0.08);
+
+  /* disable transitions so the card is visually static */
+  transition: none !important;
+
+  /* base text color for readability on the light-blue background */
+  color: #0b2b3a;
+}
+
+/* Ensure absolutely no visual change on hover or focus-within */
+.coord-card:hover,
+.coord-card:focus-within {
+  transform: none !important;
+  box-shadow: 0 10px 30px rgba(11,99,214,0.08) !important;
+  border-color: rgba(11,99,214,0.18) !important;
+  background: linear-gradient(180deg, rgba(11,99,214,0.12), rgba(235,246,255,0.95)) !important;
+}
+
+/* Photo larger, rounded, with subtle frame */
+.coord-photo {
+  width: 140px;
+  height: 140px;
+  flex: 0 0 140px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(135deg,#eef6ff,#f6fbff);
+  display: grid;
+  place-items: center;
+  border: 3px solid #ffffff;
+  box-shadow: 0 8px 20px rgba(11,63,120,0.08);
+}
+.coord-photo img { width:100%; height:100%; object-fit:cover; display:block; }
+
+/* Info column */
+.coord-card .person-info { flex:1; min-width:0; }
+
+/* Name: larger, bolder, accent color */
+.coord-card .person-name {
+  font-size: 1.28rem;
+  font-weight: 800;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height:1.1;
+}
+
+/* Coordinator badge to the right of name */
+.coordinator-badge {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.78rem;
+  padding: 6px 10px;
+  border-radius: 999px;
+  box-shadow: 0 6px 18px rgba(11,99,214,0.12);
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+/* Role: emphasized pill */
+.coord-card .person-role {
+  margin-top: 8px;
+  display: inline-block;
+  background: rgba(11,99,214,0.08);
+  color: #103153;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+}
+
+/* Section headings inside card */
+.coord-card .founder-section-title {
+  margin-top: 14px;
+  font-weight: 800;
+  color: #223a0b;
+  font-size: 1rem;
+}
+
+/* Paragraphs: slightly darker for contrast and better spacing */
+.coord-card .founder-paragraph {
+  margin: 6px 0 0 0;
+  color: #23394a;
+  line-height: 1.55;
+  font-size: 0.98rem;
+  white-space: pre-wrap;
+}
+
+/* Make links inside name visibly interactive (links still respond) */
+.coord-card .person-name a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+.coord-card .person-name a:hover,
+.coord-card .person-name a:focus {
+  color: #083a9a;
+  border-color: rgba(11,99,214,0.18);
+  outline: none;
+}
+
+/* Responsive: stack vertically on small screens */
+@media (max-width: 720px) {
+  .coord-card { flex-direction: column; align-items: center; text-align: center; padding:16px; }
+  .coord-photo { width:120px; height:120px; flex:0 0 120px; }
+  .coord-card .person-info { width:100%; }
+  .coord-card .person-name { justify-content:center; font-size:1.12rem; }
+  .coordinator-badge { margin-left:0; }
+  .coord-card .person-role { display:block; margin:10px auto 0 auto; }
+}
+
+.founder-name {
+  color: #0b63d6 !important;
+  font-weight: 800;
+  font-size: 1.32rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Make coordinator name (Dr. Amirreza Fateh) static blue with no hover effect */
+.coord-card .person-name a {
+  color: #0b63d6 !important;
+  font-weight: 800;
+  text-decoration: none;
+  border: none;
+  transition: none !important;
+}
+
+/* Disable hover/focus effects completely */
+.coord-card .person-name a:hover,
+.coord-card .person-name a:focus {
+  color: #0b63d6 !important;
+  text-decoration: none !important;
+  border: none !important;
+  outline: none !important;
+}
+
+
+  
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="lab-brand">
+        <div class="lab-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="48" height="48" fill="none" aria-hidden="true">
+            <rect x="6" y="6" width="52" height="52" rx="6" stroke="#0b63d6" stroke-width="3" fill="none"></rect>
+            <path d="M32 20c-9.3 0-16.8 8.5-20 12 3.2 3.5 10.7 12 20 12s16.8-8.5 20-12c-3.2-3.5-10.7-12-20-12z" fill="#0b63d6" opacity="0.14"/>
+            <circle cx="32" cy="32" r="8" stroke="#0b63d6" stroke-width="3" fill="#0b63d6"/>
+            <circle cx="32" cy="32" r="4" fill="#fff"/>
+          </svg>
+        </div>
+        <div class="lab-title-wrap">
+          <div class="lab-title">CVLab SHUT</div>
+          <div class="lab-sub">Computer Vision Lab — Shahrood University of Technology</div>
+        </div>
+      </div>
+
+      <nav id="mainNav" aria-label="Primary navigation">
+        <a href="#home">Home</a>
+        <a href="#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#people">People</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" aria-labelledby="home-title">
+        <div class="founder-box" role="region" aria-label="Founder information">
+          <div class="founder-photo" aria-hidden="true">
+            <img src="./images/Dr_Mansoor_Fateh.jpg" alt="Professor photo">
+          </div>
+
+          <div class="founder-content">
+            <div class="founder-top">
+              <div class="founder-text">
+                <a class="founder-name" href="https://shahroodut.ac.ir/en/as/index.php?id=S800" target="_blank" rel="noopener noreferrer" id="home-title">Dr. Mansoor Fateh</a>
+                <div class="founder-role">Associate Professor — Department of Computer Science</div>
+                <div class="founder-contact">Email: <a href="mailto:mansoor_fateh@shahroodut.ac.ir" target="_blank" rel="noopener noreferrer">mansoor_fateh@shahroodut.ac.ir</a> — Founder and primary sponsor of CVLab SHUT</div>
+              </div>
+            </div>
+
+            <div>
+              <div class="founder-section-title">Professor biography</div>
+              <div class="founder-paragraph">Mansoor Fateh received the M.S. degree in Biomedical Engineering from Tarbiat Modares University, Tehran, Iran, and the PhD from Tarbiat Modares University, Tehran, Iran. He is a faculty member in the Faculty of Computer Engineering, Shahrood University of Technology, Iran. His research interests include machine learning and image processing.</div>
+
+              <div class="founder-section-title">Lab goals and activities</div>
+              <div class="founder-paragraph">CVLab SHUT supports undergraduate, MSc and PhD training in computer vision for medical imaging by offering mentorship, collaborative datasets, and interdisciplinary partnerships with hospitals and industry so our reproducible research can make a real-world difference.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="research" aria-labelledby="research-title">
+        <div class="section-head">
+          <div id="research-title" class="section-title">Research</div>
+          <div class="section-sub">Selected articles in the lab's focus areas</div>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <strong>Medical Image Analysis</strong>
+            <div style="margin-top:8px;color:var(--muted)">Segmentation, registration, and domain adaptation for clinical images.</div>
+          </div>
+          <div class="card">
+            <strong>Deep Learning for Health</strong>
+            <div style="margin-top:8px;color:var(--muted)">Robust models, uncertainty quantification, and interpretability.</div>
+          </div>
+          <div class="card">
+            <strong>Datasets & Benchmarks</strong>
+            <div style="margin-top:8px;color:var(--muted)">Curating reproducible datasets and benchmarks for fair evaluation.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="datasets" aria-labelledby="datasets-title" class="section-datasets">
+  <div class="section-head">
+    <div id="datasets-title" class="section-title">Datasets</div>
+    <div class="section-sub">Curated datasets released by the lab</div>
+  </div>
+
+  <div class="cards" role="list">
+    <!-- Dataset 1 -->
+    <article class="dataset-card" role="listitem">
+      <img src="./images/BRISC2025.png" alt="Banner image for Brain MRI Tumor Dataset">
+      <div class="card-body">
+        <h3 class="dataset-title">
+          <a href="https://www.kaggle.com/datasets/briscdataset/brisc2025" target="_blank" rel="noopener noreferrer">‌BRISC 2025</a>
+        </h3>
+        <p class="dataset-desc">BRISC is a high-quality, expert-annotated MRI dataset curated for brain tumor segmentation and classification. It addresses common limitations in existing datasets (e.g., BraTS, Figshare), including class imbalance, narrow tumor focus, and annotation inconsistencies.</p>
+      </div>
+    </article>
+
+    <!-- Dataset 2 -->
+    <article class="dataset-card" role="listitem">
+      <img src="./images/MFSD2024.png" alt="Banner image for Chest X-Ray Dataset">
+      <div class="card-body">
+        <h3 class="dataset-title">
+          <a href="https://github.com/sadjadrz/MFSD" target="_blank" rel="noopener noreferrer">MFSD 2024</a>
+        </h3>
+        <p class="dataset-desc">MFSD is a dataset with pixel-level annotations of face-mask regions.
+It’s useful for training precise mask-segmentation models and reducing occlusion problems in face tasks like recognition, alignment, and attribute analysis.</p>
+      </div>
+    </article>
+
+    <!-- Dataset 3 -->
+    <article class="dataset-card" role="listitem">
+      <img src="./images/OIN2024.png" alt="Banner image for Retinal Fundus Dataset">
+      <div class="card-body">
+        <h3 class="dataset-title">
+          <a href="https://doi.org/10.1002/eng2.12832" target="_blank" rel="noopener noreferrer">OIN 2024</a>
+        </h3>
+        <p class="dataset-desc">OIN dataset contains 1,920 Iranian newspaper images for training and evaluating Persian OCR systems. It emphasizes challenging layouts, varied fonts, and print artifacts, making it especially useful for document layout analysis (DLA) and text-line detection (TLD).</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+
+      <section id="publications" aria-labelledby="pubs-title">
+        <div class="section-head">
+          <div id="pubs-title" class="section-title">Publications</div>
+          <div class="section-sub">Selected peer-reviewed articles</div>
+        </div>
+
+        <div class="pubs" role="list">
+          <article class="pub" role="listitem">
+            <div class="meta">
+              <div class="year-title">2025 — BRISC: Annotated Dataset for Brain Tumor Segmentation and Classification with Swin-HAFNet</div>
+              <div class="authors">
+                <a href="https://scholar.google.com/citations?user=wjNokn4AAAAJ&hl=en" target="_blank" rel="noopener noreferrer">A Fateh</a>, 
+                <a href="https://scholar.google.com/citations?user=vmBGznMAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Y Rezvani</a>, 
+                <span>S Moayedi</span>, 
+                <a href="https://scholar.google.com/citations?user=jxn15pUAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">S Rezvani</a>, 
+                <span>F Fateh</span>,
+                <a href="https://scholar.google.com/citations?user=ZHezeMIAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">M Fateh</a>,
+                <a href="https://scholar.google.com/citations?user=WPumu9wAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">V Abolghasemi</a>
+              </div>
+              <div class="venue">arXiv preprint arXiv:2506.14318</div>
+            </div>
+            <div class="links"><a href="https://arxiv.org/pdf/2506.14318" target="_blank" rel="noopener noreferrer">PDF</a></div>
+          </article>
+
+          <article class="pub" role="listitem">
+            <div class="meta">
+              <div class="year-title">2024 — Enhancing optical character recognition: Efficient techniques for document layout analysis and text line detection</div>
+              <div class="authors">
+                <a href="https://scholar.google.com/citations?user=wjNokn4AAAAJ&hl=en" target="_blank" rel="noopener noreferrer">A Fateh</a>,
+                <a href="https://scholar.google.com/citations?user=ZHezeMIAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">M Fateh</a>,
+                <a href="https://scholar.google.com/citations?user=WPumu9wAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">V Abolghasemi</a>
+              </div>
+              <div class="venue">Engineering Reports 6 (9), e12832</div>
+            </div>
+            <div class="links"><a href="https://onlinelibrary.wiley.com/doi/pdf/10.1002/eng2.12832" target="_blank" rel="noopener noreferrer">PDF</a></div>
+          </article>
+
+          <article class="pub" role="listitem">
+            <div class="meta">
+              <div class="year-title">2024 — FusionLungNet: Multi-scale fusion convolution with refinement network for lung CT image segmentation</div>
+              <div class="authors">
+                <a href="https://scholar.google.com/citations?user=jxn15pUAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">S Rezvani</a>, 
+                <a href="https://scholar.google.com/citations?user=ZHezeMIAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">M Fateh</a>,
+                <a href="https://scholar.google.com/citations?user=v2yd2SUAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Y Jalali</a>,
+                <a href="https://scholar.google.com/citations?user=wjNokn4AAAAJ&hl=en" target="_blank" rel="noopener noreferrer">A Fateh</a>
+              </div>
+              <div class="venue">Biomedical Signal Processing and Control 107, 107858</div>
+            </div>
+            <div class="links"><a href="https://arxiv.org/pdf/2410.15812" target="_blank" rel="noopener noreferrer">PDF</a></div>
+          </article>
+
+          <article class="pub" role="listitem">
+            <div class="meta">
+              <div class="year-title">2024 — ABANet: Attention boundary‐aware network for image segmentation</div>
+              <div class="authors">
+                <a href="https://scholar.google.com/citations?user=jxn15pUAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">S Rezvani</a>, 
+                <a href="https://scholar.google.com/citations?user=ZHezeMIAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">M Fateh</a>,
+                <a href="https://scholar.google.com/citations?user=htZke-UAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">H Khosravi</a>
+              </div>
+              <div class="venue">Expert Systems, e13625</div>
+            </div>
+            <div class="links"><a href="https://doi.org/10.1111/exsy.13625" target="_blank" rel="noopener noreferrer">PDF</a></div>
+          </article>
+
+        </div>
+      </section>
+
+      <section id="people" aria-labelledby="people-title">
+        <div class="section-head">
+          <div id="people-title" class="section-title">People</div>
+          <div class="section-sub">Lab members are grouped: Coordinator, Members (students & researchers), and Alumni.</div>
+        </div>
+
+        <div class="people-section">
+
+          <div class="subsection">
+            <div class="sub-title">Lab Coordinator</div>
+            <p class="sub-desc">Person responsible for daily coordination, onboarding, and operational supervision.</p>
+
+            <div class="coord-card">
+              <div class="coord-photo"><img src="./images/Amir_Reza_Fateh.jpg" alt="Coordinator photo"></div>
+              <div class="person-info">
+                <div class="person-name"><a href="https://webpages.iust.ac.ir/amirreza_fateh/" target="_blank" rel="noopener noreferrer">Amirreza Fateh</a></div>
+                <div class="person-role">Lab Coordinator — manages operations and supervision</div>
+
+                <div class="founder-section-title" style="margin-top:10px">Biography</div>
+                <div class="founder-paragraph">Amirreza Fateh serves as the Lab Coordinator of CVLab_SHUT, specializing in Few-Shot Segmentation and Transfer Learning. With a strong background in image processing, he earned the 2nd rank in his bachelor's and the 1st rank in his master's program. Amirreza is a senior researcher dedicated to advancing the frontiers of AI, particularly in innovative applications for image processing.</div>
+
+                <div class="founder-section-title" style="margin-top:10px">Coordinator activities</div>
+                <div class="founder-paragraph">Coordinates onboarding, schedules meetings, manages project logistics, assists with data access, and facilitates communication between students and collaborators.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <div class="sub-title">PhD Students & Research Assistants</div>
+            <p class="sub-desc">Active lab members including PhD students and research assistants.</p>
+
+            <div class="person-list">
+              <div class="person-card">
+                <div class="person-photo"><img src="./images/Zahraa_Zamaani.jpg" alt="Zahraa Zamaani"></div>
+                <div class="person-info">
+                  <div class="person-name">Zahraa Zamaani</div>
+                  <div class="person-role">PhD Student</div>
+                  <div class="person-bio">Zahraa Zamaani holds a bachelor's degree in Software Engineering from Mazandaran University and a master's degree in Artificial Intelligence from Eshraq Institute, Bojnord. She is currently pursuing a Ph.D. in Artificial Intelligence at Shahrood University of Technology.</div>
+                </div>
+              </div>
+
+              <div class="person-card">
+                <div class="person-photo"><img src="./images/Mostafa_Gholami.jpg" alt="Mostafa Gholami"></div>
+                <div class="person-info">
+                  <div class="person-name"><a href="https://www.linkedin.com/in/mostafa-gholami-6817aa2a6/" target="_blank" rel="noopener noreferrer"> Mostafa Gholami</a></div>
+                  <div class="person-role">PhD Student</div>
+                  <div class="person-bio">Mostafa Gholami is a Ph.D. candidate in Artificial Intelligence at Shahrood University of Technology. He ranked 29th nationally in the AI Ph.D. exam and holds BSc and MSc degrees from K. N. Toosi University. His research focuses on multimodal medical image segmentation and deep learning.</div>
+                </div>
+              </div>
+
+              <div class="person-card">
+                <div class="person-photo"><img src="./images/Reza_Ghadiri.png" alt="Reza Ghadiri"></div>
+                <div class="person-info">
+                  <div class="person-name">Reza Ghadiri</div>
+                  <div class="person-role">PhD Student</div>
+                  <div class="person-bio">Reza Ghadiri holds a Ph.D. in Artificial Intelligence and works as a Data Scientist. He applies machine learning and complex networks to financial data analysis and has experience in e-commerce strategy. His interests include graph learning and LLMs.</div>
+                </div>
+              </div>
+
+              <div class="person-card">
+                <div class="person-photo"><img src="./images/Yeganeh_Jalali.jpg" alt="Yeganeh Jalali"></div>
+                <div class="person-info">
+                  <div class="person-name"><a href="https://scholar.google.com/citations?user=v2yd2SUAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Yeganeh Jalali</a></div>
+                  <div class="person-role">PhD Student</div>
+                  <div class="person-bio">Yeganeh Jalali is a Ph.D. candidate in Computer Engineering (AI) at Shahrood University of Technology. Her research focuses on diabetic retinopathy severity grading from fundus images. She has several publications and holds BSc and MSc degrees with highest distinction.</div>
+                </div>
+              </div>
+
+              <div class="person-card">
+                <div class="person-photo"><img src="./images/Mahshid_Dehghanpour.jpg" alt="Mahshid Dehghanpour"></div>
+                <div class="person-info">
+                  <div class="person-name"><a href="https://shahroodut.ac.ir/en/as/index.php?id=ST547" target="_blank" rel="noopener noreferrer">Mahshid Dehghanpour</a></div>
+                  <div class="person-role">PhD Student</div>
+                  <div class="person-bio">Mahshid Dehghanpour is currently a Ph.D. candidate in Artificial Intelligence at Shahrood University of Technology, Shahrood, Iran, where she also serves as a lecturer. She holds a Master's degree in Computer Engineering.</div>
+                </div>
+              </div>
+
+              <div class="person-card">
+                <div class="person-photo"><img src="./images/Hassan_Rezayi.jpg" alt="Hassan Rezayi"></div>
+                <div class="person-info">
+                  <div class="person-name">Hassan Rezayi</div>
+                  <div class="person-role">PhD Student</div>
+                  <div class="person-bio">Hassan Rezayi is a PhD student in Computer Science specializing in Artificial Intelligence, currently conducting research in image processing. Her academic focus involves developing advanced algorithms for visual data analysis and computer vision applications.</div>
+                </div>
+              </div>
+
+              <div class="person-card">
+                <div class="person-photo"><img src="./images/Alireza_Saber.jpg" alt="Alireza Saber"></div>
+                <div class="person-info">
+                  <div class="person-name"><a href="https://alirezasa7.github.io/" target="_blank" rel="noopener noreferrer">Alireza Saber</a></div>
+                  <div class="person-role">Research Assistant</div>
+                  <div class="person-bio">Alireza Saber is a researcher with a strong passion for higher education and a deep interest in artificial intelligence, particularly in computer vision, medical image analysis, and multimodal tasks. His ongoing research focuses on developing lightweight and interpretable models for visual data, and he has authored three research articles in this field to date.</div>
+                </div>
+              </div>
+
+              <div class="person-card">
+                <div class="person-photo"><img src="./images/Yasin_Rezvani.png" alt="Yasin Rezvani"></div>
+                <div class="person-info">
+                  <div class="person-name"><a href="https://scholar.google.com/citations?user=vmBGznMAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Yasin Rezvani</a></div>
+                  <div class="person-role">Research Assistant</div>
+                  <div class="person-bio">Yasin Rezvani is a computer engineering undergraduate at Shahrood University of Technology. Passionate about AI and computer vision, he focuses on deep learning for medical image analysis and denoising. His interests center on advancing machine learning in healthcare through research, projects, and volunteering.</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+            <div class="subsection">
+              <div class="sub-title">Master's Students</div>
+              <p class="sub-desc">Active master's students currently working in the lab.</p>
+
+              <div class="person-list">
+              <div class="person-card">
+                <div class="person-photo"><img src="./images/Rahil_Chamanifar.jpg" alt="Rahil Chamanifar"></div>
+                <div class="person-info">
+                  <div class="person-name">Rahil Chamanifar</div>
+                  <div class="person-role">MSc Student</div>
+                  <div class="person-bio">Rahil Chamanifar is a master's student in Computer Engineering – Artificial Intelligence and Robotics. Her work focuses on designing deep learning models for visual data analysis, including image recognition and reconstruction, and exploring interdisciplinary applications of machine learning.</div>
+                </div>
+              </div>
+              
+              <div class="person-card">
+                <div class="person-photo"><img src="./images/Maryam_Zarghani.jpg" alt="Maryam Zarghani"></div>
+                <div class="person-info">
+                  <div class="person-name">Maryam Zarghani</div>
+                  <div class="person-role">MSc Student</div>
+                  <div class="person-bio">Maryam Zarghani is a master's student in Artificial Intelligence and Robotics at Shahrood University of Technology. Her research field is image processing, focusing on semantic segmentation of high-resolution remote sensing images using deep neural networks.</div>
+                </div>
+              </div>
+
+              <div class="person-card">
+                <div class="person-photo"><img src="./images/Zahra_Hosseini.jpg" alt="Zahra Hosseini"></div>
+                <div class="person-info">
+                  <div class="person-name">Zahra Hosseini</div>
+                  <div class="person-role">MSc Student</div>
+                  <div class="person-bio">Zahra Hosseini is a postgraduate student specializing in Artificial Intelligence and Robotics. She is currently working on her thesis, which focuses on image segmentation using transformer models.</div>
+                </div>
+              </div>
+
+              <div class="person-card">
+                <div class="person-photo"><img src="./images/Elham_Davarpanah.jpg" alt="Elham Davarpanah"></div>
+                <div class="person-info">
+                  <div class="person-name">Elham Davarpanah</div>
+                  <div class="person-role">MSc Student</div>
+                  <div class="person-bio">Elham Davarpanah is an M.Sc. student in Artificial Intelligence at Shahrood University of Technology. She works in the field of medical image processing and is interested in machine learning, deep learning, image and text processing, and data engineering.</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        
+          <div class="subsection">
+            <div class="sub-title">Alumni</div>
+            <p class="sub-desc">Former lab members who have successfully completed their studies.</p>
+
+            <div class="person-list">
+
+              <div class="person-card">
+                <div class="person-photo"><img src="./images/Sadjad_Rezvani.jpg" alt="Sadjad Rezvani"></div>
+                <div class="person-info">
+                  <div class="person-name"><a href="https://sadjadrz.github.io/" target="_blank" rel="noopener noreferrer">Sadjad Rezvani</a></div>
+                  <div class="person-role">MSc Student</div>
+                  <div class="person-bio">Sadjad Rezvani earned his master’s degree from Shahrood University of Technology with a thesis on masked face recognition using deep learning. As a Computer Vision Engineer at Semnan Technology Park, he worked on face and license plate recognition systems and a salt crack sorting machine.</div>
+                </div>
+              </div>
+
+              <div class="person-card">
+                <div class="person-photo"><img src="./images/Mahdieh_Sharifi.jpg" alt="Mahdieh Sharifi"></div>
+                <div class="person-info">
+                  <div class="person-name">Mahdieh Sharifi</div>
+                  <div class="person-role">MSc Student</div>
+                  <div class="person-bio">Mahdieh Sharifi completed her Master's in Image Processing at Shahrood University of Technology under Dr. Mansour Fateh, defending her thesis with excellent distinction and publishing two ISI papers. She now pursues a Ph.D. at Shahrood University of Technology, focusing on security and networking.</div>
+                </div>
+              </div>
+
+              <div class="person-card">
+                <div class="person-photo"><img src="./images/Nasim_Danay-e_Tous.jpg" alt="Nasim Danay-e Tous"></div>
+                <div class="person-info">
+                  <div class="person-name">Nasim Danay-e Tous</div>
+                  <div class="person-role">MSc Student</div>
+                  <div class="person-bio">Nasim Danay-e Tous is an M.Sc. graduate in Artificial Intelligence whose research focused on medical image processing, particularly image classification and segmentation using deep learning techniques. She is interested in deep learning models, machine learning, and computer vision.</div>
+                </div>
+              </div>
+            
+              <div class="person-card">
+                <div class="person-photo"><img src="./images/Mehri_Sadat_Mousavi.jpg" alt="Mehri Sadat Mousavi"></div>
+                <div class="person-info">
+                  <div class="person-name">Mehri Sadat Mousavi</div>
+                  <div class="person-role">MSc Student</div>
+                  <div class="person-bio">Mehri Sadat Mousavi is an M.Sc. graduate from Shahrood University of Technology, specializing in deep learning and machine learning within the field of image processing.</div>
+                </div>
+              </div>
+
+
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="teaching" aria-labelledby="teaching-title">
+        <div class="section-head">
+          <div id="teaching-title" class="section-title">Teaching</div>
+          <div class="section-sub">Courses taught by the lab founder and coordinator.</div>
+        </div>
+
+      <div class="teaching-grid">
+
+        <div class="teaching-card">
+          <strong>Fundamentals of Digital Image Processing</strong>
+          <div style="margin-top:8px;color:var(--muted)">
+            <br>Core concepts of image formation, filtering, enhancement, and feature extraction. Includes lectures and practical exercises.
+          </div>
+        </div>
+
+        <div class="teaching-card">
+          <strong>Introduction to Machine Learning for Computer Vision</strong>
+          <div style="margin-top:8px;color:var(--muted)">
+            An introductory course on machine learning methods for visual data, covering classification, feature learning, and model evaluation.
+          </div>
+        </div>
+
+        <div class="teaching-card">
+          <strong>Advanced Topics in Medical Imaging with Deep Learning</strong>
+          <div style="margin-top:8px;color:var(--muted)">
+            A specialized course on deep learning techniques for medical imaging, including segmentation, diagnosis, and multimodal analysis.
+          </div>
+        </div>
+
+      </div>
+
+      </section>
+
+      <section id="contact" aria-labelledby="contact-title">
+        <div class="section-head">
+          <div id="contact-title" class="section-title">Contact</div>
+          <div class="section-sub">Mailing address and links</div>
+        </div>
+
+        <div style="max-width:820px;background:var(--card);padding:14px;border-radius:12px;border:1px solid rgba(8,10,20,0.03)">
+          <p style="margin:0 0 8px 0"><strong>Address</strong>: Lab of Computer Vision, Faculty of Computer Engineering, Shahrood University of Technology, Haft Tir Square, Shahrood, Semnan Province, Iran</p>
+          <p style="margin:0 0 8px 0"><strong>Email</strong>: <a href="mailto:amirreza.fateh@shahroodut.ac.ir" target="_blank" rel="noopener noreferrer">amirreza.fateh@shahroodut.ac.ir</a></p>
+          <p style="margin:0 0 8px 0"><strong>Links</strong>: <a href="https://github.com/CVLab-SHUT" target="_blank" rel="noopener noreferrer">GitHub</a> | <a href="https://www.researchgate.net/lab/CVLab-SHUT-Mansoor-Fateh" target="_blank" rel="noopener noreferrer">ResearchGate</a> | <a href="https://scholar.google.com/citations?user=ZHezeMIAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Google Scholar</a> | <a href="https://shahroodut.ac.ir/en/" target="_blank" rel="noopener noreferrer">Shahrood University of Technology</a></p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      © <span id="year"></span> CVLab SHUT
+    </footer>
+  </div>
+
+<script>
+(function(){
+  const header = document.querySelector('header');
+  const navLinks = Array.from(document.querySelectorAll('#mainNav a'));
+  const sections = navLinks
+    .map(a => {
+      const href = a.getAttribute('href');
+      return href?.startsWith('#') ? document.querySelector(href) : null;
+    })
+    .filter(Boolean);
+
+  function getHeaderOffset() {
+    return header ? header.offsetHeight : 0;
+  }
+
+  function setActiveById(id) {
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === `#${id}`);
+    });
+  }
+
+  // Set year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Smooth scroll on nav click
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (!target) return;
+        const offset = getHeaderOffset();
+        const top = target.getBoundingClientRect().top + window.scrollY - offset - 12;
+        window.scrollTo({ top, behavior: 'smooth' });
+        history.pushState(null, '', href);
+        // Do NOT set active here — let IntersectionObserver handle it
+      });
+    }
+  });
+
+  // Intersection Observer for active section
+  let observer;
+  function createObserver() {
+    if (observer) observer.disconnect();
+    const offset = getHeaderOffset();
+    observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveById(entry.target.id);
+        }
+      });
+    }, {
+      rootMargin: `-${offset + 20}px 0px 0px 0px`,
+      threshold: 0.1
+    });
+
+    sections.forEach(section => observer.observe(section));
+  }
+
+  createObserver();
+  window.addEventListener('resize', () => {
+    createObserver();
+  }, { passive: true });
+
+  // Header scroll effect
+  window.addEventListener('scroll', () => {
+    if (header) header.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  // External link handling (unchanged)
+  document.querySelectorAll('a[href]').forEach(a => {
+    const href = a.getAttribute('href');
+    if (!href || href.startsWith('#')) return;
+    if (/^https?:\/\//i.test(href)) {
+      try {
+        const url = new URL(href);
+        if (url.origin !== location.origin) {
+          a.setAttribute('target', '_blank');
+          a.setAttribute('rel', 'noopener noreferrer');
+        }
+      } catch (e) {}
+    }
+  });
+})();
+</script>
+
+
+</body>
+</html>
