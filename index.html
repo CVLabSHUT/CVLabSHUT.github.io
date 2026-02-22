@@ -35,10 +35,10 @@
     text-decoration: none;  
   }
 
-  a:hover, a:visited, a:active {
+  /* a:hover, a:visited, a:active {
     color: inherit;          
     text-decoration: none;   
-  }
+  } */
 
   #datasets a,
 #datasets a:visited,
@@ -320,6 +320,29 @@ nav a{padding:8px 10px;border-radius:10px}
   outline: none !important;
 }
 
+.founder-paragraph,
+.person-bio,
+.dataset-desc {
+  text-align: justify;
+  line-height: 1.7;
+  text-justify: inter-word;
+}
+
+.teaching-card > div {
+  text-align: justify;
+  line-height: 1.7;
+}
+
+.card-desc {
+  margin-top: 8px;
+  color: var(--muted);
+  /* text-align: justify; */
+  line-height: 1.6;
+}
+
+#contact p {
+  line-height: 1.6;
+}
 
   
 </style>
@@ -345,8 +368,9 @@ nav a{padding:8px 10px;border-radius:10px}
       <nav id="mainNav" aria-label="Primary navigation">
         <a href="#home">Home</a>
         <a href="#research">Research</a>
-        <a href="#publications">Publications</a>
+        <a href="#datasets">Datasets</a>
         <a href="#people">People</a>
+        <a href="#publications">Publications</a>        
         <a href="#teaching">Teaching</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -388,127 +412,59 @@ nav a{padding:8px 10px;border-radius:10px}
         <div class="cards">
           <div class="card">
             <strong>Medical Image Analysis</strong>
-            <div style="margin-top:8px;color:var(--muted)">Segmentation, registration, and domain adaptation for clinical images.</div>
+            <div class="card-desc">Segmentation, registration, and domain adaptation for clinical images.</div>
           </div>
           <div class="card">
             <strong>Deep Learning for Health</strong>
-            <div style="margin-top:8px;color:var(--muted)">Robust models, uncertainty quantification, and interpretability.</div>
+            <div class="card-desc">Robust models, uncertainty quantification, and interpretability.</div>
           </div>
           <div class="card">
             <strong>Datasets & Benchmarks</strong>
-            <div style="margin-top:8px;color:var(--muted)">Curating reproducible datasets and benchmarks for fair evaluation.</div>
+            <div class="card-desc">Curating reproducible datasets and benchmarks for fair evaluation.</div>
           </div>
         </div>
       </section>
 
       <section id="datasets" aria-labelledby="datasets-title" class="section-datasets">
-  <div class="section-head">
-    <div id="datasets-title" class="section-title">Datasets</div>
-    <div class="section-sub">Curated datasets released by the lab</div>
-  </div>
-
-  <div class="cards" role="list">
-    <!-- Dataset 1 -->
-    <article class="dataset-card" role="listitem">
-      <img src="./images/BRISC2025.png" alt="Banner image for Brain MRI Tumor Dataset">
-      <div class="card-body">
-        <h3 class="dataset-title">
-          <a href="https://www.kaggle.com/datasets/briscdataset/brisc2025" target="_blank" rel="noopener noreferrer">‌BRISC 2025</a>
-        </h3>
-        <p class="dataset-desc">BRISC is a high-quality, expert-annotated MRI dataset curated for brain tumor segmentation and classification. It addresses common limitations in existing datasets (e.g., BraTS, Figshare), including class imbalance, narrow tumor focus, and annotation inconsistencies.</p>
-      </div>
-    </article>
-
-    <!-- Dataset 2 -->
-    <article class="dataset-card" role="listitem">
-      <img src="./images/MFSD2024.png" alt="Banner image for Chest X-Ray Dataset">
-      <div class="card-body">
-        <h3 class="dataset-title">
-          <a href="https://github.com/sadjadrz/MFSD" target="_blank" rel="noopener noreferrer">MFSD 2024</a>
-        </h3>
-        <p class="dataset-desc">MFSD is a dataset with pixel-level annotations of face-mask regions.
-It’s useful for training precise mask-segmentation models and reducing occlusion problems in face tasks like recognition, alignment, and attribute analysis.</p>
-      </div>
-    </article>
-
-    <!-- Dataset 3 -->
-    <article class="dataset-card" role="listitem">
-      <img src="./images/OIN2024.png" alt="Banner image for Retinal Fundus Dataset">
-      <div class="card-body">
-        <h3 class="dataset-title">
-          <a href="https://doi.org/10.1002/eng2.12832" target="_blank" rel="noopener noreferrer">OIN 2024</a>
-        </h3>
-        <p class="dataset-desc">OIN dataset contains 1,920 Iranian newspaper images for training and evaluating Persian OCR systems. It emphasizes challenging layouts, varied fonts, and print artifacts, making it especially useful for document layout analysis (DLA) and text-line detection (TLD).</p>
-      </div>
-    </article>
-  </div>
-</section>
-
-
-      <section id="publications" aria-labelledby="pubs-title">
         <div class="section-head">
-          <div id="pubs-title" class="section-title">Publications</div>
-          <div class="section-sub">Selected peer-reviewed articles</div>
+          <div id="datasets-title" class="section-title">Datasets</div>
+          <div class="section-sub">Curated datasets released by the lab</div>
         </div>
 
-        <div class="pubs" role="list">
-          <article class="pub" role="listitem">
-            <div class="meta">
-              <div class="year-title">2025 — BRISC: Annotated Dataset for Brain Tumor Segmentation and Classification with Swin-HAFNet</div>
-              <div class="authors">
-                <a href="https://scholar.google.com/citations?user=wjNokn4AAAAJ&hl=en" target="_blank" rel="noopener noreferrer">A Fateh</a>, 
-                <a href="https://scholar.google.com/citations?user=vmBGznMAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Y Rezvani</a>, 
-                <span>S Moayedi</span>, 
-                <a href="https://scholar.google.com/citations?user=jxn15pUAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">S Rezvani</a>, 
-                <span>F Fateh</span>,
-                <a href="https://scholar.google.com/citations?user=ZHezeMIAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">M Fateh</a>,
-                <a href="https://scholar.google.com/citations?user=WPumu9wAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">V Abolghasemi</a>
-              </div>
-              <div class="venue">arXiv preprint arXiv:2506.14318</div>
+        <div class="cards" role="list">
+          <!-- Dataset 1 -->
+          <article class="dataset-card" role="listitem">
+            <img src="./images/BRISC2025.png" alt="Banner image for Brain MRI Tumor Dataset">
+            <div class="card-body">
+              <h3 class="dataset-title">
+                <a href="https://www.kaggle.com/datasets/briscdataset/brisc2025" target="_blank" rel="noopener noreferrer">‌BRISC 2025</a>
+              </h3>
+              <p class="dataset-desc">BRISC is a high-quality, expert-annotated MRI dataset curated for brain tumor segmentation and classification. It addresses common limitations in existing datasets (e.g., BraTS, Figshare), including class imbalance, narrow tumor focus, and annotation inconsistencies.</p>
             </div>
-            <div class="links"><a href="https://arxiv.org/pdf/2506.14318" target="_blank" rel="noopener noreferrer">PDF</a></div>
           </article>
 
-          <article class="pub" role="listitem">
-            <div class="meta">
-              <div class="year-title">2024 — Enhancing optical character recognition: Efficient techniques for document layout analysis and text line detection</div>
-              <div class="authors">
-                <a href="https://scholar.google.com/citations?user=wjNokn4AAAAJ&hl=en" target="_blank" rel="noopener noreferrer">A Fateh</a>,
-                <a href="https://scholar.google.com/citations?user=ZHezeMIAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">M Fateh</a>,
-                <a href="https://scholar.google.com/citations?user=WPumu9wAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">V Abolghasemi</a>
-              </div>
-              <div class="venue">Engineering Reports 6 (9), e12832</div>
+          <!-- Dataset 2 -->
+          <article class="dataset-card" role="listitem">
+            <img src="./images/MFSD2024.png" alt="Banner image for Chest X-Ray Dataset">
+            <div class="card-body">
+              <h3 class="dataset-title">
+                <a href="https://github.com/sadjadrz/MFSD" target="_blank" rel="noopener noreferrer">MFSD 2024</a>
+              </h3>
+              <p class="dataset-desc">MFSD is a dataset with pixel-level annotations of face-mask regions.
+      It’s useful for training precise mask-segmentation models and reducing occlusion problems in face tasks like recognition, alignment, and attribute analysis.</p>
             </div>
-            <div class="links"><a href="https://onlinelibrary.wiley.com/doi/pdf/10.1002/eng2.12832" target="_blank" rel="noopener noreferrer">PDF</a></div>
           </article>
 
-          <article class="pub" role="listitem">
-            <div class="meta">
-              <div class="year-title">2024 — FusionLungNet: Multi-scale fusion convolution with refinement network for lung CT image segmentation</div>
-              <div class="authors">
-                <a href="https://scholar.google.com/citations?user=jxn15pUAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">S Rezvani</a>, 
-                <a href="https://scholar.google.com/citations?user=ZHezeMIAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">M Fateh</a>,
-                <a href="https://scholar.google.com/citations?user=v2yd2SUAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Y Jalali</a>,
-                <a href="https://scholar.google.com/citations?user=wjNokn4AAAAJ&hl=en" target="_blank" rel="noopener noreferrer">A Fateh</a>
-              </div>
-              <div class="venue">Biomedical Signal Processing and Control 107, 107858</div>
+          <!-- Dataset 3 -->
+          <article class="dataset-card" role="listitem">
+            <img src="./images/OIN2024.png" alt="Banner image for Retinal Fundus Dataset">
+            <div class="card-body">
+              <h3 class="dataset-title">
+                <a href="https://doi.org/10.1002/eng2.12832" target="_blank" rel="noopener noreferrer">OIN 2024</a>
+              </h3>
+              <p class="dataset-desc">OIN dataset contains 1,920 Iranian newspaper images for training and evaluating Persian OCR systems. It emphasizes challenging layouts, varied fonts, and print artifacts, making it especially useful for document layout analysis (DLA) and text-line detection (TLD).</p>
             </div>
-            <div class="links"><a href="https://arxiv.org/pdf/2410.15812" target="_blank" rel="noopener noreferrer">PDF</a></div>
           </article>
-
-          <article class="pub" role="listitem">
-            <div class="meta">
-              <div class="year-title">2024 — ABANet: Attention boundary‐aware network for image segmentation</div>
-              <div class="authors">
-                <a href="https://scholar.google.com/citations?user=jxn15pUAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">S Rezvani</a>, 
-                <a href="https://scholar.google.com/citations?user=ZHezeMIAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">M Fateh</a>,
-                <a href="https://scholar.google.com/citations?user=htZke-UAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">H Khosravi</a>
-              </div>
-              <div class="venue">Expert Systems, e13625</div>
-            </div>
-            <div class="links"><a href="https://doi.org/10.1111/exsy.13625" target="_blank" rel="noopener noreferrer">PDF</a></div>
-          </article>
-
         </div>
       </section>
 
@@ -582,11 +538,11 @@ It’s useful for training precise mask-segmentation models and reducing occlusi
               </div>
 
               <div class="person-card">
-                <div class="person-photo"><img src="./images/Zahraa_Zamaani.jpg" alt="Zahraa Zamaani"></div>
+                <div class="person-photo"><img src="./images/Amene_Vatanparast.jpg" alt="Amene Vatanparast"></div>
                 <div class="person-info">
-                  <div class="person-name">Zahraa Zamaani</div>
+                  <div class="person-name">Amene Vatanparast</div>
                   <div class="person-role">PhD Student</div>
-                  <div class="person-bio">Zahraa Zamaani holds a bachelor's degree in Software Engineering from Mazandaran University and a master's degree in Artificial Intelligence from Eshraq Institute, Bojnord. She is currently pursuing a Ph.D. in Artificial Intelligence at Shahrood University of Technology.</div>
+                  <div class="person-bio">Amene Vatanparast is a PhD student in Computer Engineering (Artificial Intelligence). Her research focuses on deep learning–based fetal brain abnormality detection and segmentation in ultrasound images, with particular interest in medical image analysis, semi-supervised learning, and few-shot segmentation. She has published several articles in this area and obtained her BSc and MSc degrees with highest distinction.</div>
                 </div>
               </div>
 
@@ -598,6 +554,15 @@ It’s useful for training precise mask-segmentation models and reducing occlusi
                   <div class="person-bio">Hassan Rezayi is a PhD student in Computer Science specializing in Artificial Intelligence, currently conducting research in image processing. Her academic focus involves developing advanced algorithms for visual data analysis and computer vision applications.</div>
                 </div>
               </div>
+
+              <div class="person-card">
+                <div class="person-photo"><img src="./images/Zahraa_Zamaani.jpg" alt="Zahraa Zamaani"></div>
+                <div class="person-info">
+                  <div class="person-name">Zahraa Zamaani</div>
+                  <div class="person-role">PhD Student</div>
+                  <div class="person-bio">Zahraa Zamaani holds a bachelor's degree in Software Engineering from Mazandaran University and a master's degree in Artificial Intelligence from Eshraq Institute, Bojnord. She is currently pursuing a Ph.D. in Artificial Intelligence at Shahrood University of Technology.</div>
+                </div>
+              </div>              
 
               <div class="person-card">
                 <div class="person-photo"><img src="./images/Alireza_Saber.jpg" alt="Alireza Saber"></div>
@@ -661,6 +626,15 @@ It’s useful for training precise mask-segmentation models and reducing occlusi
                 </div>
               </div>
 
+              <div class="person-card">
+                <div class="person-photo"><img src="./images/Yasamin_Alamdaar.jpg" alt="Yasamin Alamdaar"></div>
+                <div class="person-info">
+                  <div class="person-name">Yasamin Alamdaar</div>
+                  <div class="person-role">MSc Student</div>
+                  <div class="person-bio">Yasamin Alamdaar is a master's student in Artificial Intelligence at Shahrood University of Technology, with a background in biotechnology. Her research interests include the application of deep learning in bioinformatics, genomics and proteomics, protein structure prediction, and AI-driven analysis of biological sequence and structural data.</div>
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -672,11 +646,11 @@ It’s useful for training precise mask-segmentation models and reducing occlusi
             <div class="person-list">
 
               <div class="person-card">
-                <div class="person-photo"><img src="./images/Mahdieh_Sharifi.jpg" alt="Mahdieh Sharifi"></div>
+                <div class="person-photo"><img src="./images/Vida_Yousefi.jpg" alt="Vida Yousefi"></div>
                 <div class="person-info">
-                  <div class="person-name">Mahdieh Sharifi</div>
-                  <div class="person-role">MSc Student</div>
-                  <div class="person-bio">Mahdieh Sharifi completed her Master's in Image Processing at Shahrood University of Technology under Dr. Mansour Fateh, defending her thesis with excellent distinction and publishing two ISI papers. She now pursues a Ph.D. at Shahrood University of Technology, focusing on security and networking.</div>
+                  <div class="person-name">Vida Yousefi</div>
+                  <div class="person-role">PhD Graduate</div>
+                  <div class="person-bio">Vida Yousefi Ramandi holds a Ph.D. in Artificial Intelligence from Shahroud University of Technology. Her research focuses on image steganography using deep learning techniques, and she has published several papers in this field. She completed her Ph.D. program with an A+ academic standing and defended her dissertation with distinction.</div>
                 </div>
               </div>
 
@@ -684,8 +658,17 @@ It’s useful for training precise mask-segmentation models and reducing occlusi
                 <div class="person-photo"><img src="./images/Sadjad_Rezvani.jpg" alt="Sadjad Rezvani"></div>
                 <div class="person-info">
                   <div class="person-name"><a href="https://sadjadrz.github.io/" target="_blank" rel="noopener noreferrer">Sadjad Rezvani</a></div>
-                  <div class="person-role">MSc Student</div>
+                  <div class="person-role">MSc Graduate</div>
                   <div class="person-bio">Sadjad Rezvani earned his master’s degree from Shahrood University of Technology with a thesis on masked face recognition using deep learning. As a Computer Vision Engineer at Semnan Technology Park, he worked on face and license plate recognition systems and a salt crack sorting machine.</div>
+                </div>
+              </div>
+
+              <div class="person-card">
+                <div class="person-photo"><img src="./images/Mahdieh_Sharifi.jpg" alt="Mahdieh Sharifi"></div>
+                <div class="person-info">
+                  <div class="person-name">Mahdieh Sharifi</div>
+                  <div class="person-role">MSc Graduate</div>
+                  <div class="person-bio">Mahdieh Sharifi completed her Master's in Image Processing at Shahrood University of Technology under Dr. Mansour Fateh, defending her thesis with excellent distinction and publishing two ISI papers. She now pursues a Ph.D. at Shahrood University of Technology, focusing on security and networking.</div>
                 </div>
               </div>
 
@@ -693,7 +676,7 @@ It’s useful for training precise mask-segmentation models and reducing occlusi
                 <div class="person-photo"><img src="./images/Nasim_Danay-e_Tous.jpg" alt="Nasim Danay-e Tous"></div>
                 <div class="person-info">
                   <div class="person-name">Nasim Danay-e Tous</div>
-                  <div class="person-role">MSc Student</div>
+                  <div class="person-role">MSc Graduate</div>
                   <div class="person-bio">Nasim Danay-e Tous is an M.Sc. graduate in Artificial Intelligence whose research focused on medical image processing, particularly image classification and segmentation using deep learning techniques. She is interested in deep learning models, machine learning, and computer vision.</div>
                 </div>
               </div>
@@ -702,15 +685,80 @@ It’s useful for training precise mask-segmentation models and reducing occlusi
                 <div class="person-photo"><img src="./images/Mehri_Sadat_Mousavi.jpg" alt="Mehri Sadat Mousavi"></div>
                 <div class="person-info">
                   <div class="person-name">Mehri Sadat Mousavi</div>
-                  <div class="person-role">MSc Student</div>
-                  <div class="person-bio">Mehri Sadat Mousavi is an M.Sc. graduate from Shahrood University of Technology, specializing in deep learning and machine learning within the field of image processing.</div>
+                  <div class="person-role">MSc Graduate</div>
+                  <div class="person-bio">Mehri Sadat Mousavi is a graduate of the Master's degree in Artificial Intelligence and works in the field of deep learning and machine learning in the field of medical image processing.</div>
                 </div>
               </div>
-
-
-
             </div>
           </div>
+        </div>
+      </section>
+
+
+      <section id="publications" aria-labelledby="pubs-title">
+        <div class="section-head">
+          <div id="pubs-title" class="section-title">Publications</div>
+          <div class="section-sub">Selected peer-reviewed articles</div>
+        </div>
+
+        <div class="pubs" role="list">
+          <article class="pub" role="listitem">
+            <div class="meta">
+              <div class="year-title">2025 — BRISC: Annotated Dataset for Brain Tumor Segmentation and Classification with Swin-HAFNet</div>
+              <div class="authors">
+                <a href="https://scholar.google.com/citations?user=wjNokn4AAAAJ&hl=en" target="_blank" rel="noopener noreferrer">A Fateh</a>, 
+                <a href="https://scholar.google.com/citations?user=vmBGznMAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Y Rezvani</a>, 
+                <span>S Moayedi</span>, 
+                <a href="https://scholar.google.com/citations?user=jxn15pUAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">S Rezvani</a>, 
+                <span>F Fateh</span>,
+                <a href="https://scholar.google.com/citations?user=ZHezeMIAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">M Fateh</a>,
+                <a href="https://scholar.google.com/citations?user=WPumu9wAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">V Abolghasemi</a>
+              </div>
+              <div class="venue">arXiv preprint arXiv:2506.14318</div>
+            </div>
+            <div class="links"><a href="https://arxiv.org/pdf/2506.14318" target="_blank" rel="noopener noreferrer">PDF</a></div>
+          </article>
+
+          <article class="pub" role="listitem">
+            <div class="meta">
+              <div class="year-title">2024 — Enhancing optical character recognition: Efficient techniques for document layout analysis and text line detection</div>
+              <div class="authors">
+                <a href="https://scholar.google.com/citations?user=wjNokn4AAAAJ&hl=en" target="_blank" rel="noopener noreferrer">A Fateh</a>,
+                <a href="https://scholar.google.com/citations?user=ZHezeMIAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">M Fateh</a>,
+                <a href="https://scholar.google.com/citations?user=WPumu9wAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">V Abolghasemi</a>
+              </div>
+              <div class="venue">Engineering Reports 6 (9), e12832</div>
+            </div>
+            <div class="links"><a href="https://onlinelibrary.wiley.com/doi/pdf/10.1002/eng2.12832" target="_blank" rel="noopener noreferrer">PDF</a></div>
+          </article>
+
+          <article class="pub" role="listitem">
+            <div class="meta">
+              <div class="year-title">2024 — FusionLungNet: Multi-scale fusion convolution with refinement network for lung CT image segmentation</div>
+              <div class="authors">
+                <a href="https://scholar.google.com/citations?user=jxn15pUAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">S Rezvani</a>, 
+                <a href="https://scholar.google.com/citations?user=ZHezeMIAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">M Fateh</a>,
+                <a href="https://scholar.google.com/citations?user=v2yd2SUAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Y Jalali</a>,
+                <a href="https://scholar.google.com/citations?user=wjNokn4AAAAJ&hl=en" target="_blank" rel="noopener noreferrer">A Fateh</a>
+              </div>
+              <div class="venue">Biomedical Signal Processing and Control 107, 107858</div>
+            </div>
+            <div class="links"><a href="https://arxiv.org/pdf/2410.15812" target="_blank" rel="noopener noreferrer">PDF</a></div>
+          </article>
+
+          <article class="pub" role="listitem">
+            <div class="meta">
+              <div class="year-title">2024 — ABANet: Attention boundary‐aware network for image segmentation</div>
+              <div class="authors">
+                <a href="https://scholar.google.com/citations?user=jxn15pUAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">S Rezvani</a>, 
+                <a href="https://scholar.google.com/citations?user=ZHezeMIAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">M Fateh</a>,
+                <a href="https://scholar.google.com/citations?user=htZke-UAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">H Khosravi</a>
+              </div>
+              <div class="venue">Expert Systems, e13625</div>
+            </div>
+            <div class="links"><a href="https://doi.org/10.1111/exsy.13625" target="_blank" rel="noopener noreferrer">PDF</a></div>
+          </article>
+
         </div>
       </section>
 
@@ -724,21 +772,21 @@ It’s useful for training precise mask-segmentation models and reducing occlusi
 
         <div class="teaching-card">
           <strong>Fundamentals of Digital Image Processing</strong>
-          <div style="margin-top:8px;color:var(--muted)">
+          <div class="card-desc">
             <br>Core concepts of image formation, filtering, enhancement, and feature extraction. Includes lectures and practical exercises.
           </div>
         </div>
 
         <div class="teaching-card">
           <strong>Introduction to Machine Learning for Computer Vision</strong>
-          <div style="margin-top:8px;color:var(--muted)">
+          <div class="card-desc">
             An introductory course on machine learning methods for visual data, covering classification, feature learning, and model evaluation.
           </div>
         </div>
 
         <div class="teaching-card">
           <strong>Advanced Topics in Medical Imaging with Deep Learning</strong>
-          <div style="margin-top:8px;color:var(--muted)">
+          <div class="card-desc">
             A specialized course on deep learning techniques for medical imaging, including segmentation, diagnosis, and multimodal analysis.
           </div>
         </div>
